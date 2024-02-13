@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// SmoothBrain is an instance of a smooth mapping.
 type SmoothBrain struct {
 	smoothMap   map[string]any
 	startingMap map[string]any
@@ -12,6 +13,7 @@ type SmoothBrain struct {
 	unmarshal   func([]byte, any) error
 }
 
+// Unmarshal takes json bytes and will return an error if one occurs.
 func (s *SmoothBrain) Unmarshal(data []byte) error {
 	err := s.unmarshal(data, &s.startingMap)
 	if err != nil {
@@ -21,6 +23,7 @@ func (s *SmoothBrain) Unmarshal(data []byte) error {
 	return nil
 }
 
+// Marshal returns the smooth json bytes or an error if one occurs.
 func (s *SmoothBrain) Marshal() ([]byte, error) {
 	data, err := s.marshal(&s.smoothMap)
 	if err != nil {
@@ -29,6 +32,12 @@ func (s *SmoothBrain) Marshal() ([]byte, error) {
 	return data, nil
 }
 
+// Get returns the smooth mapping of unmarshalled data.
+func (s *SmoothBrain) Get() map[string]any {
+	return s.smoothMap
+}
+
+// New returns a new instance of a SmoothBrain.
 func New() *SmoothBrain {
 	return &SmoothBrain{
 		marshal:     json.Marshal,

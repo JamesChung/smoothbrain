@@ -72,7 +72,7 @@ func flattenMap(prefix string, src map[string]any, dest map[string]any) {
 			flattenMap(newPrefix, val, dest)
 		case []any:
 			dest[prefix+key] = value
-			// If it's an array, we'll handle it based on preference
+			// If it's an array handle it
 			handleArray(prefix, key, val, dest)
 		default:
 			// Otherwise, store directly
